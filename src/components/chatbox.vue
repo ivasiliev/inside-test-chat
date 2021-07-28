@@ -76,8 +76,6 @@ export default {
             loading: true,
             loading_text: 'Соединяемся с сервером...',
             connection: null,
-            close_activated: false,
-            error_connection: false,
             timer: null,
             timeout: 1000, // 1s timeout before re-connected
             user_name: 'test_user',
@@ -162,19 +160,12 @@ export default {
             }
 
             this.connection.onerror = (event) => {
-                this.error_connection = true;
                 //console.log(event);
-                console.log("Error. Try re-connect to the websocket server...");
-                setTimeout(() => {
-                    this.setConnection();
-                }, this.timeout);
+                console.log("Error connection to the websocket server...");
             }
             this.connection.onclose = (event) => {
                 //console.log(event);
-                if (this.error_connection) {
-                    return false;
-                }
-                if (this.close_activated) {
+                if (event.wasClean) {
                     console.log("Websocket successfully closed");
                     return false;
                 }
@@ -186,7 +177,6 @@ export default {
         },
         // Принудительно закрываем соедние с сокетом
         closeConnection: function () {
-            this.close_activated = true;
             if (!!this.connection) {
                 this.connection.close();
             }
