@@ -49,6 +49,7 @@
 <script>
 import loader from './loader'
 import chatmessage from "./chatmessage";
+import store from '../store/'
 
 export default {
     name: "chatbox",
@@ -139,6 +140,7 @@ export default {
         // Добавление сообщения в список
         pushMessage: function (message) {
             this.messages.push(message);
+            store.dispatch('addMessage', message);
         },
         // Устанавливаем соединение с сокетом
         setConnection: function () {
@@ -202,6 +204,9 @@ export default {
             console.log("Chat is not started: socket_url not set");
         }
         this.setConnection();
+    },
+    mounted() {
+        this.messages = [].concat(store.getters.getMessages || []);
     },
     beforeDestroy() {
         this.closeConnection();
