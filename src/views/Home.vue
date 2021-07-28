@@ -1,0 +1,149 @@
+<template>
+    <div class="home">
+        <!-- header -->
+        <header class="header">
+            <!-- container -->
+            <div class="header__container responsive container">
+                <!-- header__start -->
+                <div class="header__start">
+                </div>
+                <!-- /header__start -->
+                <!-- header__end -->
+                <div class="header__end mobile-d-none">
+                    <!-- header__user -->
+                    <div class="header__user mobile-d-none">
+                        <a href="#" class="toggler">
+                            <i class="icon icon-user"></i>
+                        </a>
+                        <div class="droplist">
+                            <div class="title">Логин</div>
+                            <ul class="list">
+                                <li><a href="#">История</a></li>
+                                <li><a href="#">Настройки</a></li>
+                                <li><a href="#">Выход</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /header__user -->
+                    <!-- header__notifications -->
+                    <div class="header__notifications mobile-d-none">
+                        <a href="#" class="toggler">
+                            <i class="icon icon-bell"></i>
+                        </a>
+                        <div class="droplist extended">
+                            <div class="title">Новые уведомления <a href="#">Посмотреть все</a></div>
+                            <div class="none">Новых уведомлений нет</div>
+                        </div>
+                    </div>
+                    <!-- /header__notifications -->
+                    <!-- header__lang -->
+                    <div class="header__lang mobile-d-none">
+                        <div class="toggler">
+                            <i class="icon icon-globe"></i><i class="icon-down"></i>
+                        </div>
+                        <div class="droplist">
+                            <div class="title">Язык</div>
+                            <ul class="list">
+                                <li><a href="#" class="active">Русский</a></li>
+                                <li><a href="#">English</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /header__lang -->
+                </div>
+                <!-- /header__end -->
+            </div>
+            <!-- container -->
+        </header>
+        <!-- /header -->
+
+        <!-- custom-page -->
+        <div class="custom-page">
+            <!-- custom-page__bg -->
+            <div class="custom-page__bg message-page__bg">
+            </div>
+            <!-- /custom-page__bg -->
+            <!-- container -->
+            <div class="container medium">
+                <!-- chat-box -->
+                <chatbox
+                    :socket_url="chat.socket_url"
+                    :main_title="chat.main_title"
+                    :out_message_title="chat.out_message_title"
+                />
+                <!-- /chat-box -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /custom-page -->
+
+        <!-- footer -->
+        <footer class="footer">
+            <!-- footer__container -->
+            <div class="container responsive footer__container">
+                <div class="footer__item">
+                    <div class="footer__copyright">Copyright &#169; 2020 MyStartup</div>
+                    <div class="footer__copyright">Все права защищены.</div>
+                </div>
+                <div class="footer__item">
+                    <ul class="footer__menu">
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="#">Наша миссия</a></li>
+                        <li><a href="#">Наша команда</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                    <div class="footer__socials">
+                        <a href="#"><i class="icon icon-vk"></i></a>
+                        <a href="#"><i class="icon icon-instagram"></i></a>
+                        <a href="#"><i class="icon icon-facebook"></i></a>
+                        <a href="#"><i class="icon icon-twitter"></i></a>
+                        <a href="#"><i class="icon icon-telegram"></i></a>
+                    </div>
+                </div>
+                <ul class="footer__item _mobile footer__menu">
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">Наша миссия</a></li>
+                    <li><a href="#">Наша команда</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+                <div class="footer__item">
+                    <a href="#" class="radius-button support-button dotted">Поддержка</a>
+                    <a href="#" class="footer__link">Пользовательское соглашение</a>
+                    <a href="#" class="footer__link">Политика конфиденциальности</a>
+                </div>
+                <div class="footer__item _mobile">
+                    <div class="footer__copyright _mobile">Copyright &#169; 2020 Bitswap.</div>
+                    <div class="footer__copyright _mobile">Все права защищены.</div>
+                </div>
+            </div>
+            <!-- /footer__container -->
+        </footer>
+        <!-- /footer -->
+    </div>
+</template>
+
+<script>
+import chatbox from '../components/chatbox'
+import settings from "../settings";
+
+export default {
+    name: 'Home',
+    components: {
+        chatbox
+    },
+    data: function () {
+        return {
+            chat: {
+                main_title: 'Добро пожаловать в онлаин-чат службы поддержки',
+                socket_url: 'ws://skade.cc:38080', // Предоставленный сокет не работает, использую тестовый
+                //socket_url: 'wss://echo.websocket.org',
+                out_message_title: 'Служба поддержки'
+            }
+
+        }
+    },
+    created() {
+        this.chat.socket_url = settings.chat.socket_url;
+    }
+}
+</script>
