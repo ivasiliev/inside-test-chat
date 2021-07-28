@@ -30,7 +30,7 @@
         </div>
         <!-- /chat-box__messages -->
         <!-- chat-box__form -->
-        <form class="chat-box__form main-form" @submit.prevent="sendMessage">
+        <form class="chat-box__form main-form" @submit.prevent="sendMessage" ref="msgform">
             <textarea class="input-style" rows="7" v-model="user_message"></textarea>
             <div class="row">
                 <label class="main-form__item file-field">
@@ -207,6 +207,9 @@ export default {
     },
     mounted() {
         this.messages = [].concat(store.getters.getMessages || []);
+        setTimeout(()=>{
+            this.$refs.msgform.scrollIntoView(false);
+        },200)
     },
     beforeDestroy() {
         this.closeConnection();
